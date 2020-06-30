@@ -8,8 +8,8 @@ var frozen = false
 var velocity = Vector2.ZERO
 
 func _ready():
-	SceneChanger.connect("scene_changing", self, "_on_scene_changing")
-	SceneChanger.connect("scene_changed", self, "_on_scene_changed")
+	SceneChanger.connect("started", self, "_on_scene_changing")
+	SceneChanger.connect("completed", self, "_on_scene_changed")
 	# The player will always be frozen, until unfrozen by the scene changer
 	frozen = true
 
@@ -32,4 +32,13 @@ func _on_scene_changing(_scene):
 	
 func _on_scene_changed():
 	frozen = false
-	
+
+
+# This function will be searched by the portal system
+func set_portal_facing(dir):
+	match dir:
+		"Left":
+			$Sprite.flip_h = false
+		"Right":
+			$Sprite.flip_h = true
+

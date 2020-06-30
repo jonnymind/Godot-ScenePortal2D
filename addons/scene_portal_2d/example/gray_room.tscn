@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
-
-
-
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
 
 [node name="GrayRoom" type="Node"]
 
@@ -20,9 +18,10 @@ color = Color( 0.235294, 0.247059, 0.235294, 1 )
 position = Vector2( 160, 40 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-TYPE = 2
-AREA_MODE = false
-PORTAL_ID = 0
+useDefaultTransition = true
+type = 2
+areaMode = false
+portalId = 0
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 56, 152 )
@@ -41,6 +40,42 @@ margin_right = 311.0
 margin_bottom = 22.0
 rect_scale = Vector2( 0.4, 0.4 )
 text = "Back to where you come from"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control"]
+margin_left = 8.0
+margin_top = 24.0
+margin_right = 292.0
+margin_bottom = 55.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "This room will be reset each time you enter.
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stone" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 260, 140 )
+
+[node name="Stone2" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 320, 140 )
+
+[node name="Stone3" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 380, 140 )
+
+[node name="Stone4" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 440, 140 )
+
+[node name="Stone5" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 500, 140 )
+
+[node name="Stone6" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 240, 280 )
+
+[node name="Stone7" parent="Control/Label3" instance=ExtResource( 4 )]
+position = Vector2( 340, 220 )
 
 [node name="Label2" type="Label" parent="Control"]
 margin_left = 16.0

@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "TransitionControl",
 "language": "GDScript",
-"path": "res://addons/scene_portal_2d/transition_control.gd"
+"path": "res://addons/scene_portal_2d/transitions/mechanics/transition_base.gd"
 } ]
 _global_script_class_icons={
 "GitAPI": "",

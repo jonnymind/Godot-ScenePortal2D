@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
 
 [node name="Green Room" type="Node"]
 
@@ -17,19 +18,32 @@ color = Color( 0.0941176, 0.262745, 0.101961, 1 )
 position = Vector2( 24, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/red_room.tscn"
-PORTAL_ID = 2
+destination = "res://addons/scene_portal_2d/example/red_room.tscn"
+portalId = 2
+facing = "Right"
+
+[node name="Stone" parent="YSort/Door Icon/ScenePortal" index="1" instance=ExtResource( 4 )]
+position = Vector2( 192, -115.2 )
+
+[node name="Stone2" parent="YSort/Door Icon/ScenePortal" index="2" instance=ExtResource( 4 )]
+position = Vector2( 64, -51.2 )
+
+[node name="Stone3" parent="YSort/Door Icon/ScenePortal" index="3" instance=ExtResource( 4 )]
+position = Vector2( 128, 64 )
+
+[node name="Stone4" parent="YSort/Door Icon/ScenePortal" index="4" instance=ExtResource( 4 )]
+position = Vector2( 320, 0 )
 
 [node name="Door Icon2" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 160, 160 )
 
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/gray_room.tscn"
-TYPE = 1
-PORTAL_ID = 0
+destination = "res://addons/scene_portal_2d/example/gray_room.tscn"
+type = 1
+portalId = 0
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 160, 88 )
+position = Vector2( 160, 96 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -45,6 +59,31 @@ margin_right = 117.0
 margin_bottom = 78.0
 rect_scale = Vector2( 0.4, 0.4 )
 text = "To the Red Room"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Control"]
+margin_left = 8.00001
+margin_top = 120.0
+margin_right = 117.0
+margin_bottom = 134.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "Forced facing ->"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 117.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "This room has intentionally no transition."
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="Control"]
 margin_left = 136.0

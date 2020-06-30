@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scene_portal_2d/transitions/fader_ctrl.tscn" type="PackedScene" id=5]
 
 [node name="Red Room" type="Node2D"]
 
@@ -17,30 +19,61 @@ color = Color( 0.243137, 0.172549, 0.172549, 1 )
 position = Vector2( 160, 160 )
 
 [node name="ScenePortal" parent="YSort/Door Icon3" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/gray_room.tscn"
-TYPE = 1
-PORTAL_ID = 0
+destination = "res://addons/scene_portal_2d/example/gray_room.tscn"
+transition = NodePath("../../../FaderCtrl")
+type = 1
+portalId = 0
 
 [node name="Door Icon4" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 160, 40 )
 
 [node name="ScenePortal" parent="YSort/Door Icon4" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/yellow_room.tscn"
-TYPE = 1
-PORTAL_ID = 3
+position = Vector2( -3.05176e-05, -3.8147e-06 )
+destination = "res://addons/scene_portal_2d/example/yellow_room.tscn"
+transition = NodePath("../../../FaderCtrl")
+type = 1
+portalId = 3
 
 [node name="Door Icon2" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 296, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/green_room.tscn"
-PORTAL_ID = 2
+destination = "res://addons/scene_portal_2d/example/green_room.tscn"
+transition = NodePath("../../../FaderCtrl")
+portalId = 2
+facing = "Left"
+
+[node name="Stone" parent="YSort/Door Icon2/ScenePortal" index="1" instance=ExtResource( 4 )]
+position = Vector2( -345.6, 12.8 )
+
+[node name="Stone2" parent="YSort/Door Icon2/ScenePortal" index="2" instance=ExtResource( 4 )]
+position = Vector2( -217.6, -25.6 )
+
+[node name="Stone3" parent="YSort/Door Icon2/ScenePortal" index="3" instance=ExtResource( 4 )]
+position = Vector2( -64, 12.8 )
+
+[node name="Stone4" parent="YSort/Door Icon2/ScenePortal" index="4" instance=ExtResource( 4 )]
+position = Vector2( -217.6, 51.2 )
+
+[node name="Stone5" parent="YSort/Door Icon2/ScenePortal" index="5" instance=ExtResource( 4 )]
+position = Vector2( -332.8, -115.2 )
+
+[node name="Stone6" parent="YSort/Door Icon2/ScenePortal" index="6" instance=ExtResource( 4 )]
+position = Vector2( -422.4, 89.6 )
+
+[node name="Stone7" parent="YSort/Door Icon2/ScenePortal" index="7" instance=ExtResource( 4 )]
+position = Vector2( -38.4, -115.2 )
+
+[node name="Stone8" parent="YSort/Door Icon2/ScenePortal" index="8" instance=ExtResource( 4 )]
+position = Vector2( -64, 89.6 )
 
 [node name="Door Icon" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 24, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/blue_room.tscn"
+destination = "res://addons/scene_portal_2d/example/blue_room.tscn"
+transition = NodePath("../../../FaderCtrl")
+facing = "Right"
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 160, 96 )
@@ -59,6 +92,28 @@ margin_right = 388.0
 margin_bottom = 78.0
 rect_scale = Vector2( 0.4, 0.4 )
 text = "To the Green Room"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="Control"]
+margin_left = 264.0
+margin_top = 120.0
+margin_right = 388.0
+margin_bottom = 134.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "<- Forced Facing"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="Control"]
+margin_left = 8.00003
+margin_top = 120.0
+margin_right = 132.0
+margin_bottom = 134.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "Forced Facing ->"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -95,6 +150,22 @@ text = "To a room that resets everytime"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label5" type="Label" parent="Control"]
+margin_left = 8.00001
+margin_top = 8.0
+margin_right = 214.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "Portals here use a transition
+stored in the scene"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FaderCtrl" parent="." instance=ExtResource( 5 )]
+fadeInTime = 0.3
+fadeOutTime = 0.3
 
 [editable path="Base Room"]
 
