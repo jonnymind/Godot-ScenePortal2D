@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="Base Room" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.45098, 0.45098, 0.45098, 1 )
+polygon = PoolVector2Array( 0, 0, 320, 0, 320, 184, 0, 184 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 0, 184, -16, 200, 336, 200, 320, 184 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 0, 0, -16, -16, 336, -16, 320, 0 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 0, 0, -16, -16, -16, 200, 0, 184 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 320, 184, 336, 200, 336, -16, 320, 0 )

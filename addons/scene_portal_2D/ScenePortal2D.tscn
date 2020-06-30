@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/scene_portal_2D/ScenePortal2D.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="ScenePortal" type="Area2D" groups=[
+"Portal",
+]]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "This is a portal that will transfer a player object between scenes.
+Be sure to configure your Collision->Mask so that it matches the layer where the player resides. Also, add the player object to the `Player` group. "
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+[connection signal="body_entered" from="." to="." method="_on_TransferPortal_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_TransferPortal_body_exited"]
