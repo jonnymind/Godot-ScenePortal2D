@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Stone.gd" type="Script" id=1]
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.gd" type="Script" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/diamonds.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
