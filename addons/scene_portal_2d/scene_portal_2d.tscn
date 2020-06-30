@@ -18,5 +18,5 @@ Be sure to configure your Collision->Mask so that it matches the layer where the
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-[connection signal="body_entered" from="." to="." method="_on_TransferPortal_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_TransferPortal_body_exited"]
+[connection signal="body_entered" from="." to="." method="_on_ScenePortal_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_ScenePortal_body_exited"]

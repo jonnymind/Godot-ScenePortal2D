@@ -9,11 +9,10 @@ signal new_scene_loaded(scene)
 signal completed
 "After scene change is complete"
 
-var loading_scene = null
-
 var _scene_stack = []
 var _scene_db = {}
 var _target_position = null
+var _loading = false
 
 #################################################
 # Public interface
@@ -81,13 +80,23 @@ func clear_area() -> void:
 		scene.queue_free()
 	_scene_db.clear()
 
-#########################################################
-# Transition objects
-#########################################################
 
-func get_fader_transition() -> Node:
-	return $FadeInControl
+func get_default_transition() -> Node:
+	"""
+	Returns the default transion for the game.
+	To set up a default transition, add a link to your favorite transition
+	control (`transitions/*_ctrl.tscn`) as a child of this node, and rename
+	it `DefaultTransition`.
+	"""
+	var ctrl = get_node("/root/SceneChanger/DefaultTransition")
+	if ctrl != null:
+		return ctrl.get_transition()
+	return null
 
+func is_loading() -> bool:
+	"Safe way to know if the scene loader is currently loading"
+	return _loading
+	
 #########################################################
 # Private
 #########################################################
@@ -118,10 +127,11 @@ func _get_resource(path) -> Node:
 
 
 func _load_next_scene(status) ->void:
-	loading_scene = true
+	_loading = true
 	status.current = status.tree.current_scene
 	emit_signal("started", status.scene)
-	if status.transition != null:
+	if status.transition != null and status.transition.will_animate_leave():
+		add_child(status.transition)
 		status.transition.leave(status)
 		yield(status.transition, "transitioned_out")
 	emit_signal("old_scene_transitioned")
@@ -131,13 +141,16 @@ func _load_next_scene(status) ->void:
 	_move_player(status.portal)
 	emit_signal("new_scene_loaded")
 	
-	if status.transition != null:
+	if status.transition != null and status.transition.will_animate_enter():
 		status.transition.enter(status)
-		yield(status.transition, "transitioned_out")
+		yield(status.transition, "transitioned_in")
 
 	if not status.keep:
 		status.current.queue_free()
-	loading_scene = null
+	_loading = false
+	if status.transition:
+		remove_child(status.transition)
+		status.transition.queue_free()
 	emit_signal("completed")
 
 
@@ -158,18 +171,22 @@ func _move_player(portal_id) -> void:
 	if players.empty():
 		return
 
-	var portal_pos 
+	var portal_pos
+	var portal_facing = "None"
 	if portal_id == 0:
 		portal_pos = _target_position
 		_target_position = null
 	else:
 		var portals = get_tree().get_nodes_in_group("Portal")	
 		for portal in portals:
-			if portal.PORTAL_ID == portal_id:
+			if portal.portalId == portal_id:
 				portal_pos = portal.global_position
+				portal_facing = portal.facing
 				break
 		if not portal_pos:
 			return
 	
 	for player in players:
 		player.global_position = portal_pos
+		if portal_facing != "None" and player.has_method("set_portal_facing"):
+			player.set_portal_facing(portal_facing)

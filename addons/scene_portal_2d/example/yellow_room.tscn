@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
 
 [node name="Yellow Room" type="Node2D"]
 
@@ -18,12 +19,25 @@ position = Vector2( 152, 160 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
 position = Vector2( 1.52588e-05, 1.52588e-05 )
-TYPE = 2
-AREA_MODE = false
-PORTAL_ID = 3
+useDefaultTransition = true
+type = 2
+areaMode = false
+portalId = 3
+
+[node name="Stone" parent="YSort/Door Icon/ScenePortal" index="1" instance=ExtResource( 4 )]
+position = Vector2( -76.8, -51.2 )
+
+[node name="Stone2" parent="YSort/Door Icon/ScenePortal" index="2" instance=ExtResource( 4 )]
+position = Vector2( -12.8, -89.6 )
+
+[node name="Stone3" parent="YSort/Door Icon/ScenePortal" index="3" instance=ExtResource( 4 )]
+position = Vector2( 51.2, -89.6 )
+
+[node name="Stone4" parent="YSort/Door Icon/ScenePortal" index="4" instance=ExtResource( 4 )]
+position = Vector2( 102.4, -38.4 )
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 3 )]
-position = Vector2( 240, 136 )
+position = Vector2( 216, 88 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -39,6 +53,23 @@ margin_right = 186.316
 margin_bottom = 142.463
 rect_scale = Vector2( 0.4, 0.4 )
 text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 8.00002
+margin_top = 8.00003
+margin_right = 48.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "This room will intentionally be
+reset each time you enter;
+Yet, the player is correctly sent 
+to the entry portal each time"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="Base Room"]
 

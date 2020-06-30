@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
 
 [node name="Blue Room" type="Node2D"]
 
@@ -17,15 +18,17 @@ color = Color( 0.192157, 0.219608, 0.439216, 1 )
 position = Vector2( 160, 160 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/gray_room.tscn"
-TYPE = 1
-PORTAL_ID = 0
+destination = "res://addons/scene_portal_2d/example/gray_room.tscn"
+useDefaultTransition = true
+type = 1
+portalId = 0
 
 [node name="Door Icon2" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 296, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
-DESTINATION = "res://addons/scene_portal_2d/example/red_room.tscn"
+destination = "res://addons/scene_portal_2d/example/red_room.tscn"
+useDefaultTransition = true
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 160, 96 )
@@ -48,6 +51,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label3" type="Label" parent="Control"]
+margin_left = 11.7392
+margin_top = 12.378
+margin_right = 328.739
+margin_bottom = 26.378
+rect_scale = Vector2( 0.4, 0.4 )
+text = "The portals here use the \"DefaultTransition\" node"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Label2" type="Label" parent="Control"]
 margin_left = 136.0
 margin_top = 128.0
@@ -58,6 +72,18 @@ text = "To a common store"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Stone" parent="." instance=ExtResource( 4 )]
+position = Vector2( 40, 96 )
+
+[node name="Stone2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 224, 48 )
+
+[node name="Stone3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 120, 40 )
+
+[node name="Stone4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 240, 104 )
 
 [editable path="Base Room"]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/opening.png" type="Texture" id=1]
 [ext_resource path="res://addons/scene_portal_2d/scene_changer_ctrl.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/opening.gd" type="Script" id=3]
+[ext_resource path="res://addons/scene_portal_2d/transitions/fader_ctrl.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -39,5 +40,9 @@ __meta__ = {
 anims/FadeIn = SubResource( 1 )
 
 [node name="SceneChangerCtrl" parent="." instance=ExtResource( 2 )]
-position = Vector2( 160, 90 )
 nextScene = "res://addons/scene_portal_2d/example/blue_room.tscn"
+transitionControl = NodePath("../FaderCtrl")
+
+[node name="FaderCtrl" parent="." instance=ExtResource( 4 )]
+fadeInTime = 0.0
+fadeOutTime = 1.0

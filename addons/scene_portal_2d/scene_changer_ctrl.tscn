@@ -2,12 +2,5 @@
 
 [ext_resource path="res://addons/scene_portal_2d/scene_changer_ctrl.gd" type="Script" id=1]
 
-[node name="SceneChangerCtrl" type="Node2D"]
+[node name="SceneChangerCtrl" type="Node"]
 script = ExtResource( 1 )
-__meta__ = {
-"_editor_description_": "This is a  node you can link into your top-level scene to easily change scene when needed, without having to code it directly in your scritpts.
-
-Just link any signal you that should trigger the event transition to the `change()` method."
-}
-fadeOut = 1.0
-fadeIn = 1.0

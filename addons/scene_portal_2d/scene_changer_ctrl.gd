@@ -1,14 +1,15 @@
-extends Node2D
+extends Node
 
 export(String, FILE, "*.tscn") var nextScene
-export(float) var fadeOut = 0.0
-export(float) var fadeIn = 0.0
-
+export(NodePath) var transitionControl
+export(bool) var useDefaultTransition
 
 func change() -> void:
 	assert(nextScene != null)
-	var fader = SceneChanger.get_fader_transition()
-	fader.fadein_time = fadeIn
-	fader.fadeout_time = fadeOut
-	SceneChanger.change(nextScene, fader)
+	var transition = null
+	if useDefaultTransition:
+		transition = SceneChanger.get_default_transition()
+	elif transitionControl != "":
+		transition = get_node(transitionControl).get_transition()
+	SceneChanger.change(nextScene, transition)
 	yield(SceneChanger, "completed")
