@@ -3,23 +3,17 @@ A Godot Asset to emulate RPG-Maker portal-events and scene changes.
 
 ## Purpose
 
-Changing scenes seems one of the most hairy problems Godot newbie are facing with.
-While other games have a clear concept of "level" and simple ways you can transfer 
-between them, Godot has a much more powerful concept of "scene", but moving between 
-them requires ad-hoc scripting.
+Changing scenes seems one of the most hairy problems Godot newbies are facing. While other 
+game engines have a clear concept of "level" and simple ways you can transfer between them, 
+Godot has a much more powerful concept of "scene", but moving between them requires ad-hoc scripting.
 
-This module is an attempt at standardization of the scene changing, and offers a 
-powerful set of objects to help you design both level transfers and programmatic
-scene transition.
+This module automatizes scene switch, and offers a powerful set of objects to help 
+you design both level transfers and programmatic scene transition.
 
-* The SceneChanger obect can be directly used to change scene, optionally using 
-  transitions objects to perform visual transition between scenes.
-* The SceneChangerCtrl object provided can program the scene changer, so that you
-  need writing less code, and rely on GUI to configure your scene changes.
-* ScenePortal2D objects can be placed in your levels, and given a target scene and
-  exit portal directly from the UI, without any script.
-* Transition controls can be added to the SceneChangerCtrl and to the portals to
-  configure scene transitions without having to script them.
+* The SceneChanger object can be directly used to change scene, optionally using transitions objects to perform visual transition between scenes.
+* The SceneChangerCtrl object provided can program the scene changer, so that you need writing less code, and rely on GUI to configure your scene changes.
+* ScenePortal2D objects can be placed in your levels, and given a target scene and exit portal directly from the UI, without any script.
+Transition controls can be added to the SceneChangerCtrl and to the portals to configure scene transitions without having to script them.
 
 ## Minimal Set Up
 
