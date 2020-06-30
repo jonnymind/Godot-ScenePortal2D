@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://addons/scene_portal_2D/example/Opening.png" type="Texture" id=1]
-[ext_resource path="res://addons/scene_portal_2D/example/Opening.gd" type="Script" id=2]
-[ext_resource path="res://addons/scene_portal_2D/SceneChangerCtrl.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2D/example/opening.png" type="Texture" id=1]
+[ext_resource path="res://addons/scene_portal_2D/scene_changer_ctrl.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scene_portal_2D/example/opening.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -21,7 +21,7 @@ tracks/0/keys = {
 }
 
 [node name="Opening" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Opening" type="Sprite" parent="."]
 position = Vector2( 160, 90 )
@@ -38,7 +38,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 1 )
 
-[node name="SceneChangerCtrl" parent="." instance=ExtResource( 3 )]
+[node name="SceneChangerCtrl" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 90 )
 NEXT_SCENE = "res://addons/scene_portal_2D/example/Blue Room.tscn"
 FADE_OUT = 2.0

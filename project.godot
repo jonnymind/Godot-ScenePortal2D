@@ -8,20 +8,25 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://git_api.gdns"
+} ]
 _global_script_class_icons={
-
+"GitAPI": ""
 }
 
 [application]
 
 config/name="ScenePortal2D"
-run/main_scene="res://addons/scene_portal_2D/example/Opening.tscn"
+run/main_scene="res://addons/scene_portal_2D/example/opening.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-SceneChanger="*res://addons/scene_portal_2D/SceneChanger.tscn"
+SceneChanger="*res://addons/scene_portal_2D/scene_changer.tscn"
 
 [display]
 
@@ -31,6 +36,10 @@ window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[gdnative]
+
+singletons=[ "res://git_api.gdnlib" ]
 
 [layer_names]
 

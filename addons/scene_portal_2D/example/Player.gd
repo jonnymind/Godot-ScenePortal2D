@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
-var velocity = Vector2.ZERO
 
 const MAX_SPEED=64
 const FRICTION=0.5
+
 var frozen = false
+var velocity = Vector2.ZERO
 
 func _ready():
 	SceneChanger.connect("scene_changing", self, "_on_scene_changing")
