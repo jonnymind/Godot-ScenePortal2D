@@ -9,3 +9,5 @@ __meta__ = {
 
 Just link any signal you that should trigger the event transition to the `change()` method."
 }
+fadeOut = 1.0
+fadeIn = 1.0

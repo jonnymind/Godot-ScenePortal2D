@@ -48,3 +48,5 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FadeInControl"]
 anims/fade = SubResource( 1 )
+[connection signal="transitioned_in" from="FadeInControl" to="." method="_on_transitioned_in"]
+[connection signal="transitioned_out" from="FadeInControl" to="." method="_on_transitioned_out"]

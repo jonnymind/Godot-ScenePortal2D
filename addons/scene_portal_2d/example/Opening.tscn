@@ -40,3 +40,4 @@ anims/FadeIn = SubResource( 1 )
 
 [node name="SceneChangerCtrl" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 90 )
+nextScene = "res://addons/scene_portal_2d/example/blue_room.tscn"

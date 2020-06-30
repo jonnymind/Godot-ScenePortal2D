@@ -1,23 +1,25 @@
 extends Node
 
-signal scene_changing(target_scene)
-signal scene_changed
-signal scene_transitioning
+signal started(new_scene)
+"When scene change is started, before starting transition"
+signal old_scene_transitioned
+"After transition out is completed"
+signal new_scene_loaded(scene)
+"When the new scene is loaded, before transitioning in starts"
+signal completed
+"After scene change is complete"
+
+var loading_scene = null
 
 var _scene_stack = []
 var _scene_db = {}
-
-var loading_scene = null
 var _target_position = null
-
-func get_fader_transition():
-	return $FadeInControl
 
 #################################################
 # Public interface
 #################################################
 	
-func change(path, transition=null, target_portal=-1, keep_current=false):
+func change(path, transition=null, target_portal=-1, keep_current=false) -> void:
 	"""
 		Move the scene to the target resource.
 		`transition`: A transition object exposing `enter(source, target)` and 
@@ -30,7 +32,8 @@ func change(path, transition=null, target_portal=-1, keep_current=false):
 	"""
 	_change_instance(_get_resource(path), transition, target_portal, keep_current)
 
-func push(path, transition=null, target_portal=-1, keep_current=false, source_portal=null):
+
+func push(path, transition=null, target_portal=-1, keep_current=false, source_portal=null) -> void:
 	"""
 		Move the scene to the target resource, recording the previous scene.
 		`transition`: A transition object exposing `enter(source, target)` and 
@@ -54,7 +57,8 @@ func push(path, transition=null, target_portal=-1, keep_current=false, source_po
 	_scene_stack.append([current.filename, position])
 	_change_instance(_get_resource(path), transition, target_portal, keep_current)
 
-func pop(transition=null, target_portal=-1, keep_current=false):
+
+func pop(transition=null, target_portal=-1, keep_current=false) -> void:
 	"""
 		Move the scene to the last previously pushed one.
 		`transition`: A transition object exposing `enter(source, target)` and 
@@ -69,69 +73,87 @@ func pop(transition=null, target_portal=-1, keep_current=false):
 	assert(target != null)
 	_target_position = target[1]
 	change(target[0], transition, target_portal, keep_current)
-	
 
-func clear_area():
+
+func clear_area() -> void:
 	"Remove all the scenes saved by the other functions."
 	for scene in _scene_db:
 		scene.queue_free()
 	_scene_db.clear()
 
 #########################################################
+# Transition objects
+#########################################################
+
+func get_fader_transition() -> Node:
+	return $FadeInControl
+
+#########################################################
 # Private
 #########################################################
-func _change_instance(instance, transition=null, target_portal=-1, keep_current=false):
+
+func _change_instance(instance, transition=null, target_portal=-1, keep_current=false) -> void:
 	if keep_current:
 		var current = get_tree().current_scene
 		var node_name = current.filename
 		if node_name == null:
 			node_name = current.name
 		_scene_db[node_name] = current
-	call_deferred("_load_next_scene", get_tree(), instance, transition, target_portal, keep_current)
+	var transition_status = {
+		"tree": get_tree(),
+		"scene": instance,
+		"transition": transition,
+		"portal": target_portal,
+		"keep": keep_current
+	}
+	call_deferred("_load_next_scene", transition_status)
 
-func _get_resource(path):
+
+func _get_resource(path) -> Node:
 	if _scene_db.has(path):
 		return _scene_db[path]
 	var resource = load(path)
 	assert(resource != null)
 	return resource.instance()
 
-func _load_next_scene(tree, scene, transition, target_portal, keep_current):
-	loading_scene = scene
-	emit_signal("scene_changing", scene)
-	var current = tree.current_scene
-	if transition != null:
-		transition.leave(current, scene)
-		yield(transition, "on_leave_complete")
 
+func _load_next_scene(status) ->void:
+	loading_scene = true
+	status.current = status.tree.current_scene
+	emit_signal("started", status.scene)
+	if status.transition != null:
+		status.transition.leave(status)
+		yield(status.transition, "transitioned_out")
+	emit_signal("old_scene_transitioned")
+	
 	# The workhorse of the scene changer
-	_replace_scene(tree, scene)
-	_move_player(target_portal)
-	emit_signal("scene_transitioning")
+	_replace_scene(status.tree, status.scene)
+	_move_player(status.portal)
+	emit_signal("new_scene_loaded")
 	
-	if transition != null:
-		transition.enter(current, scene)
-		yield(transition, "on_enter_complete")
-		
-	if not keep_current:
-		current.queue_free()
+	if status.transition != null:
+		status.transition.enter(status)
+		yield(status.transition, "transitioned_out")
 
-	emit_signal("scene_changed")
+	if not status.keep:
+		status.current.queue_free()
 	loading_scene = null
-	
-func _replace_scene(tree, scene):
+	emit_signal("completed")
+
+
+func _replace_scene(tree, scene) -> void:
 	# Save the tree, as get_tree() will be lost once we remove ourselves
 	var current = tree.current_scene
 	tree.root.remove_child(current)
 	tree.root.add_child(scene)
 	# Need to update the current scene
 	tree.current_scene = scene
-	
-	
-func _move_player(portal_id):
+
+
+func _move_player(portal_id) -> void:
 	if portal_id < 0 or (portal_id == 0 and _target_position == null):
 		return
-		
+
 	var players = get_tree().get_nodes_in_group("Player")
 	if players.empty():
 		return
@@ -141,13 +163,13 @@ func _move_player(portal_id):
 		portal_pos = _target_position
 		_target_position = null
 	else:
-		var portals = get_tree().get_nodes_in_group("Portal")
-	
+		var portals = get_tree().get_nodes_in_group("Portal")	
 		for portal in portals:
 			if portal.PORTAL_ID == portal_id:
 				portal_pos = portal.global_position
 				break
 		if not portal_pos:
 			return
+	
 	for player in players:
 		player.global_position = portal_pos
