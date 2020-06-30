@@ -29,7 +29,6 @@ DESTINATION = "res://addons/scene_portal_2D/example/Red Room.tscn"
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 160, 96 )
-scale = Vector2( 1, 1 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0

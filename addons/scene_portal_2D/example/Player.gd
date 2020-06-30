@@ -9,6 +9,8 @@ var frozen = false
 func _ready():
 	SceneChanger.connect("scene_changing", self, "_on_scene_changing")
 	SceneChanger.connect("scene_changed", self, "_on_scene_changed")
+	# The player will always be frozen, until unfrozen by the scene changer
+	frozen = true
 
 func _process(delta):
 	if frozen: 
