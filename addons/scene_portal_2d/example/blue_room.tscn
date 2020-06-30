@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/scene_portal_2D/example/base_room.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/scene_portal_2D/example/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/scene_portal_2D/example/door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
 
 [node name="Blue Room" type="Node2D"]
 
@@ -17,7 +17,7 @@ color = Color( 0.192157, 0.219608, 0.439216, 1 )
 position = Vector2( 160, 160 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-DESTINATION = "res://addons/scene_portal_2D/example/gray_room.tscn"
+DESTINATION = "res://addons/scene_portal_2d/example/gray_room.tscn"
 TYPE = 1
 PORTAL_ID = 0
 
@@ -25,7 +25,7 @@ PORTAL_ID = 0
 position = Vector2( 296, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
-DESTINATION = "res://addons/scene_portal_2D/example/red_room.tscn"
+DESTINATION = "res://addons/scene_portal_2d/example/red_room.tscn"
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 160, 96 )

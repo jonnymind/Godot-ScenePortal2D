@@ -21,12 +21,12 @@ _global_script_class_icons={
 [application]
 
 config/name="ScenePortal2D"
-run/main_scene="res://addons/scene_portal_2D/example/opening.tscn"
+run/main_scene="res://addons/scene_portal_2d/example/opening.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-SceneChanger="*res://addons/scene_portal_2D/scene_changer.tscn"
+SceneChanger="*res://addons/scene_portal_2d/scene_changer.tscn"
 
 [display]
 
