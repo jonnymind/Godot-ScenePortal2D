@@ -13,7 +13,7 @@ collision_mask = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "This is a portal that will transfer a player object between scenes.
-Be sure to configure your Collision->Mask so that it matches the layer where the player resides. Also, add the player object to the `Player` group. "
+Be sure to configure your Collision->Mask so that it matches the layer where the player resides. Check the script docstring for more info."
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

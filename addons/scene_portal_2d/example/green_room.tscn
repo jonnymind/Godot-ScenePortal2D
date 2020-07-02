@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/scene_portal_2d/example/player_hook.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
 
@@ -19,7 +19,8 @@ position = Vector2( 24, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
 destination = "res://addons/scene_portal_2d/example/red_room.tscn"
-portalId = 2
+target = 3
+teleport = true
 facing = "Right"
 
 [node name="Stone" parent="YSort/Door Icon/ScenePortal" index="1" instance=ExtResource( 4 )]
@@ -40,10 +41,24 @@ position = Vector2( 160, 160 )
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
 destination = "res://addons/scene_portal_2d/example/gray_room.tscn"
 type = 1
-portalId = 0
+portal_id = 2
+target = 0
 
-[node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 160, 96 )
+[node name="Door Icon3" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 296, 24 )
+
+[node name="ScenePortal" parent="YSort/Door Icon3" index="0"]
+portal_id = 4
+target = 5
+
+[node name="Door Icon4" parent="YSort" instance=ExtResource( 3 )]
+position = Vector2( 296, 160 )
+
+[node name="ScenePortal" parent="YSort/Door Icon4" index="0"]
+portal_id = 5
+target = 4
+
+[node name="PlayerHook" parent="YSort" instance=ExtResource( 2 )]
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -92,9 +107,38 @@ margin_right = 245.0
 margin_bottom = 142.0
 rect_scale = Vector2( 0.4, 0.4 )
 text = "To a common store"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="Control"]
+margin_left = 232.0
+margin_top = 8.00001
+margin_right = 356.0
+margin_bottom = 22.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "Intrascene portal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="Control"]
+margin_left = 232.0
+margin_top = 168.0
+margin_right = 356.0
+margin_bottom = 182.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "Intrascene portal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="Base Room"]
 
 [editable path="YSort/Door Icon"]
 
 [editable path="YSort/Door Icon2"]
+
+[editable path="YSort/Door Icon3"]
+
+[editable path="YSort/Door Icon4"]

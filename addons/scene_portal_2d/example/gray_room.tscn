@@ -18,10 +18,10 @@ color = Color( 0.235294, 0.247059, 0.235294, 1 )
 position = Vector2( 160, 40 )
 
 [node name="ScenePortal" parent="YSort/Door Icon" index="0"]
-useDefaultTransition = true
+use_default_transition = true
 type = 2
-areaMode = false
-portalId = 0
+area_mode = false
+target = 0
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 56, 152 )

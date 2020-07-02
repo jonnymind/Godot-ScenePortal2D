@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/scene_portal_2d/example/base_room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/scene_portal_2d/example/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/scene_portal_2d/example/door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/scene_portal_2d/example/Stone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/scene_portal_2d/example/player_hook.tscn" type="PackedScene" id=5]
 
 [node name="Blue Room" type="Node2D"]
 
@@ -14,23 +15,27 @@ color = Color( 0.192157, 0.219608, 0.439216, 1 )
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="Door Icon" parent="YSort" instance=ExtResource( 3 )]
+[node name="Door Icon3" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 160, 160 )
 
-[node name="ScenePortal" parent="YSort/Door Icon" index="0"]
+[node name="ScenePortal" parent="YSort/Door Icon3" index="0"]
 destination = "res://addons/scene_portal_2d/example/gray_room.tscn"
-useDefaultTransition = true
+use_default_transition = true
 type = 1
-portalId = 0
+portal_id = 2
+target = 0
 
 [node name="Door Icon2" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 296, 96 )
 
 [node name="ScenePortal" parent="YSort/Door Icon2" index="0"]
 destination = "res://addons/scene_portal_2d/example/red_room.tscn"
-useDefaultTransition = true
+use_default_transition = true
+teleport = true
 
-[node name="KinematicBody2D" parent="YSort" instance=ExtResource( 2 )]
+[node name="PlayerHook" parent="YSort" instance=ExtResource( 5 )]
+
+[node name="KinematicBody2D" parent="YSort/PlayerHook" instance=ExtResource( 2 )]
 position = Vector2( 160, 96 )
 
 [node name="Control" type="Control" parent="."]
@@ -87,6 +92,6 @@ position = Vector2( 240, 104 )
 
 [editable path="Base Room"]
 
-[editable path="YSort/Door Icon"]
+[editable path="YSort/Door Icon3"]
 
 [editable path="YSort/Door Icon2"]
